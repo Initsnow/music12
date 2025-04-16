@@ -1,3 +1,7 @@
 # music12.js
 
-wait for more...
+build:
+
+```aiignore
+pnpm build
+```

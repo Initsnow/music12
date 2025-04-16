@@ -1,4 +1,6 @@
 export {getBlackRandomNote, getNormalRandomNote, getCasualRandomNote, getWhiteRandomNote} from "./methods/utGetNote.ts"
+
+export {getNoteByLocation} from "./methods/utGetNote.ts";
 // import {getBlackRandomNote} from "./methods/utGetNote.ts"
 // import {getWhiteRandomNote} from "./methods/utGetNote.ts"
 // import {getNormalRandomNote} from "./methods/utGetNote.ts"

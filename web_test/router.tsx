@@ -1,3 +1,4 @@
+import Radix from "@web/pages/Radix.tsx";
 import {createHashRouter, Navigate} from "react-router-dom";
 import App from "./App.tsx";
 import MainLayout from "./MainLayout.tsx";
@@ -15,6 +16,10 @@ const r = createHashRouter([
       {
         path: "home",
         element: <Home/>,
+      },
+      {
+        path: "radix",
+        element: <Radix/>,
       },
     ],
   }
