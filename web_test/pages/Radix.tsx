@@ -6,7 +6,9 @@ import {Note} from "@music/note";
 const RadixComps = () => {
 	const show1 = () => {
 		const note1 = new Note("C", 0, 4)
-		const interval = new Interval("maj",3)
+		console.log("初始音符：", note1.simpleDescription)
+		const interval = new Interval("maj", 3)
+		console.log("音程是", interval.simpleDescription, interval)
 		console.log(note1.getNoteByInterval(interval))
 	}
 
