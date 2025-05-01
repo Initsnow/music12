@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "pnpm vite",
-    "build": "del-cli dist/* && tsup src/index.ts --format esm --dts --dts"
+    "build": "del-cli dist/* && tsup src/index.ts --format esm --dts"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

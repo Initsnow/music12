@@ -3,7 +3,7 @@ import * as interval from "./interval"
 import scale from "./scale"
 import * as stave from "./stave"
 import * as factory from "./factory"
-import {Radix} from "./common/radix"
+import * as Radix from "./common/radix"
 import * as  circleOfFifths from "./circleOfFifths";
 import chord from "./chord"
 import find from "./find"
