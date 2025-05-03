@@ -71,6 +71,18 @@ var FactoryError = class extends Error {
   }
 };
 
+// src/common/radix/index.ts
+var radix_exports = {};
+__export(radix_exports, {
+  Base12Radix: () => Base12Radix,
+  Base7Radix: () => Base7Radix,
+  IntervalRadix: () => IntervalRadix,
+  Radix: () => Radix,
+  ScaleRadix: () => ScaleRadix,
+  SemitoneRadix: () => SemitoneRadix,
+  StepRadix: () => StepRadix
+});
+
 // src/common/radix/Radix.ts
 var _base10;
 var _Radix = class _Radix {
@@ -1592,7 +1604,8 @@ var getNoteByLocation = (location, octave) => {
 var interval_exports = {};
 __export(interval_exports, {
   Interval: () => Interval,
-  getIntervalByComparingNotes: () => getIntervalByComparingNotes
+  getIntervalByComparingNotes: () => getIntervalByComparingNotes,
+  getIntervalBySemitoneGap: () => getIntervalBySemitoneGap
 });
 
 // src/interval/methods/getIntervalByComparingNotes.ts
@@ -1618,6 +1631,19 @@ var getIntervalByComparingNotes = (note1, note2) => {
     return new Interval(findIntervalObj.type, stepGapArr[0] * 7 + stepGapArr[1] + 1);
   }
   throw new IntervalError("Cannot find the interval.");
+};
+
+// src/interval/methods/getIntervalBySemitoneGap.ts
+import { isNumber as isNumber5, isUndefined as isUndefined5 } from "lodash";
+var getIntervalBySemitoneGap = (semitoneGap) => {
+  const semitoneGapAbs = Math.abs(semitoneGap);
+  const semitoneGapRadix = new Base12Radix(semitoneGapAbs);
+  const findResult = intervalMeta_default.where("isNatural", true).where("semitoneGap", semitoneGapRadix.lastDigit).all();
+  if (isUndefined5(findResult) || isNumber5(findResult)) return [];
+  if (findResult.length === 0) return [];
+  return findResult.map((item) => {
+    return new Interval(item.type, item.num + semitoneGapRadix.firstDigit * 7);
+  });
 };
 
 // src/scale/presets/ScaleMode.ts
@@ -17435,11 +17461,11 @@ var cls_getScoreSymbol_default = cls_getScoreSymbol;
 import { isEmpty as isEmpty5 } from "lodash";
 
 // src/chord/cls/classFn/cls_isTransformEmpty.ts
-import { isUndefined as isUndefined5, keys as keys7 } from "lodash";
+import { isUndefined as isUndefined6, keys as keys7 } from "lodash";
 var cls_isTransformEmpty = (obj) => {
   let result = true;
   for (let k of keys7(obj)) {
-    if (!isUndefined5(obj[k])) {
+    if (!isUndefined6(obj[k])) {
       result = false;
       break;
     }
@@ -18344,11 +18370,11 @@ var getFifthCircleByAlter = (alter) => {
 
 // src/find/findChord.ts
 import collect13 from "collect.js";
-import { isArray as isArray2, isNumber as isNumber5, isEqual as isEqual3, intersection, isEmpty as isEmpty8 } from "lodash";
+import { isArray as isArray2, isNumber as isNumber6, isEqual as isEqual3, intersection, isEmpty as isEmpty8 } from "lodash";
 var findChord = (locationList, isStrictlyMatch, rootNoteLocation, limitType) => {
   const isLimitType = isArray2(limitType) && limitType.length > 0;
   const betterLocationList = locationList.slice().sort((x, y) => x - y);
-  const isRootNoteLocationRequired = isNumber5(rootNoteLocation) && rootNoteLocation >= 0 && rootNoteLocation <= 11;
+  const isRootNoteLocationRequired = isNumber6(rootNoteLocation) && rootNoteLocation >= 0 && rootNoteLocation <= 11;
   let handle = collect13(findChordMeta_default);
   if (isRootNoteLocationRequired) {
     handle = handle.where("rootNoteLocation", rootNoteLocation);
@@ -19943,7 +19969,7 @@ var find_default = {
   findNotesInScale: findNotesInScale_default
 };
 export {
-  Radix,
+  radix_exports as Radix,
   chord_default as chord,
   circleOfFifths_exports as circleOfFifths,
   factory_exports as factory,
